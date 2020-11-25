@@ -2,7 +2,7 @@
 # exit on any error
 set -euo pipefail
 
-IFS=" " read -r -a releases <<< "$(helm list --short)"
+mapfile -t releases < <(helm list --short)
 
 for release in "${releases[@]}"; do
 	helm3 2to3 convert "$release" --tiller-out-cluster
